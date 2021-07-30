@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-md-6">
+    <app-add-grade></app-add-grade>
+  </div>
+  <div class="col-md-6">
+    <span *ngFor="let grade of service.list">{{grade.name}}</span>
+  </div>
+</div>
+
