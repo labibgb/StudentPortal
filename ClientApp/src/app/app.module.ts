@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatGridListModule, MatInputModule, MatNativeDateModule } from '@angular/material'
+import { MatButtonModule, MatCardModule, MatDatepickerModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatTableModule } from '@angular/material'
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -33,19 +33,26 @@ import { AddGradeComponent } from './grade/add-grade/add-grade.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: '', component: StudentComponent, pathMatch: 'full' },
       { path: 'student', component: StudentComponent },
+      { path: 'student/add', component: AddStudentComponent },
+      { path: 'student/edit/:id', component: AddStudentComponent },
       { path: 'grade', component: GradeComponent },
     ]),
     BrowserAnimationsModule,
+    MatIconModule,
     MatInputModule,
+    MatSelectModule,
     MatFormFieldModule,
     MatGridListModule,
     MatButtonModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

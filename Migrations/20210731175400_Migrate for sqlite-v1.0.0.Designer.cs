@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentPortal.Models;
@@ -10,40 +9,37 @@ using StudentPortal.Models;
 namespace StudentPortal.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210730045204_Update Student")]
-    partial class UpdateStudent
+    [Migration("20210731175400_Migrate for sqlite-v1.0.0")]
+    partial class Migrateforsqlitev100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.8");
 
             modelBuilder.Entity("StudentPortal.Models.Address", b =>
                 {
-                    b.Property<int>("AddressID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Addres1")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Address1")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.HasKey("AddressID");
+                    b.HasKey("Id");
 
                     b.HasIndex("StudentId")
                         .IsUnique();
@@ -53,66 +49,63 @@ namespace StudentPortal.Migrations
 
             modelBuilder.Entity("StudentPortal.Models.Course", b =>
                 {
-                    b.Property<int>("CourseID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("CourseCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("CourseName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("CourseID");
+                    b.HasKey("Id");
 
                     b.ToTable("courses");
                 });
 
             modelBuilder.Entity("StudentPortal.Models.Grade", b =>
                 {
-                    b.Property<int>("GradeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("GradeName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Section")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("GradeId");
+                    b.HasKey("Id");
 
                     b.ToTable("grades");
                 });
 
             modelBuilder.Entity("StudentPortal.Models.Student", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("GradeId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("BLOB");
 
-                    b.Property<string>("StudentEmail")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StudentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("GradeId");
 
@@ -122,10 +115,10 @@ namespace StudentPortal.Migrations
             modelBuilder.Entity("StudentPortal.Models.StudentCourse", b =>
                 {
                     b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CourseId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("StudentId", "CourseId");
 
@@ -137,7 +130,7 @@ namespace StudentPortal.Migrations
             modelBuilder.Entity("StudentPortal.Models.Address", b =>
                 {
                     b.HasOne("StudentPortal.Models.Student", "Student")
-                        .WithOne("StudentAddress")
+                        .WithOne("Address")
                         .HasForeignKey("StudentPortal.Models.Address", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -187,7 +180,7 @@ namespace StudentPortal.Migrations
 
             modelBuilder.Entity("StudentPortal.Models.Student", b =>
                 {
-                    b.Navigation("StudentAddress");
+                    b.Navigation("Address");
 
                     b.Navigation("StudentCourses");
                 });

@@ -12,10 +12,37 @@ export class StudentServicesService {
     this.api = baseUrl + 'api/student';
   }
 
-  studentData: Student;
+  studentData: Student = new Student();
+  list: Student[];
 
-  addGrade() {
+  addStudent() {
+    if (this.studentData.id == null) {
+      return this.insertStudent();
+    }
+    else {
+      console.log(this.studentData);
+      return this.updateStudent(this.studentData.id);
+    }
+  }
+
+  insertStudent() {
     return this.http.post(this.api, this.studentData);
+  }
+
+  updateStudent(id: number) {
+    return this.http.put(`${this.api}/${id}`, this.studentData);
+  }
+
+  deleteStudent(id: number) {
+    return this.http.delete(`${this.api}/${id}`);
+  }
+
+  getList() {
+    return this.http.get(this.api);
+  }
+
+  getSingle(id: number) {
+    return this.http.get(`${this.api}/${id}`);
   }
 
 }

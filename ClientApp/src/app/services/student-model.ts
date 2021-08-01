@@ -1,19 +1,18 @@
-export interface Student {
+
+export class Student {
   id: number;
   name?: string;
   email?: string;
   phone?: string;
   dateOfBirth?: Date;
-  address: {
-    [key: string]: Address
-  };
+  address: Address = new Address();
   gradeId: number;
-  grade?: {
-    [key: string]: Grade
-  };
+  grade?: Grade;
+
+  constructor() { };
 }
 
-export interface Address{
+export class Address {
   id: number;
   address1?: string;
   city?: string;
@@ -21,8 +20,8 @@ export interface Address{
   country?: string;
 }
 
-export interface Grade {
+export class Grade  {
   id: number;
-  standard?: string;
-  section?: string;
+  name: string;
+  section: string;
 }

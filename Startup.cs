@@ -11,6 +11,8 @@ namespace StudentPortal
 {
     public class Startup
     {
+        private const bool V = true;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,7 +32,7 @@ namespace StudentPortal
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ConnectToClient"))
+                options.UseSqlite(Configuration.GetConnectionString("SqlClient"))
             );
         }
 

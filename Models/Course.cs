@@ -11,6 +11,6 @@ namespace StudentPortal.Models
         public string Code { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
+        public ICollection<StudentCourse> StudentCourses { get; set; }
     }
 }

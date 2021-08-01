@@ -13,11 +13,7 @@ namespace StudentPortal.Models
         {
 
         }
-        public DbSet<Student> students { get; set; }
-        public DbSet<Address> addresses { get; set; }
-        public DbSet<Course> courses { get; set; }
-        public DbSet<Grade> grades { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>()
@@ -29,7 +25,8 @@ namespace StudentPortal.Models
             modelBuilder.Entity<Student>()
                 .HasOne<Grade>(s => s.Grade)
                 .WithMany(g => g.Students)
-                .HasForeignKey(s => s.GradeId);
+                .HasForeignKey(s => s.GradeId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<StudentCourse>().HasKey(sc => new { sc.StudentId, sc.CourseId });
@@ -44,5 +41,10 @@ namespace StudentPortal.Models
                 .WithMany(c => c.StudentCourses)
                 .HasForeignKey(sc => sc.CourseId);
         }
+
+        public DbSet<Student> students { get; set; }
+        public DbSet<Address> addresses { get; set; }
+        public DbSet<Course> courses { get; set; }
+        public DbSet<Grade> grades { get; set; }
     }
 }

@@ -24,14 +24,20 @@ namespace StudentPortal.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Grade>>> Get()
         {
-            return await _context.grades.ToListAsync();
+            return await _context.grades
+                .Include(g => g.Students)
+                .ToListAsync();
         }
 
         // GET: api/Grade/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Grade>> Get(int id)
         {
-            var grade = await _context.grades.FindAsync(id);
+            var grade = await _context.grades
+                .Include(g => g.Students)
+                    .ThenInclude(s => s.Address)
+                .Where(g => g.Id == id)
+                .FirstOrDefaultAsync();
 
             if (grade == null)
             {

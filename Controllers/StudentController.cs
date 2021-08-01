@@ -24,14 +24,22 @@ namespace StudentPortal.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> Get()
         {
-            return await _context.students.ToListAsync();
+            return await _context.students
+                .Include(s => s.Address)
+                .Include(s => s.Grade)
+                .Include(s => s.StudentCourses)
+                .ToListAsync();
         }
 
         // GET: api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> Get(int id)
         {
-            var student = await _context.students.FindAsync(id);
+            var student = await _context.students
+                .Include(s => s.Address)
+                .Include(s => s.Grade)
+                .Include(s => s.StudentCourses)
+                .Where(s => s.Id == id).FirstOrDefaultAsync();
 
             if (student == null)
             {
@@ -50,9 +58,14 @@ namespace StudentPortal.Controllers
             {
                 return BadRequest();
             }
+            var data = await _context.students.FindAsync(id);
 
-            _context.Entry(student).State = EntityState.Modified;
-
+            data.Name = student.Name;
+            data.Phone = student.Phone;
+            data.Email = student.Email;
+            data.Address = student.Address;
+            data.DateOfBirth = student.DateOfBirth;
+            data.GradeId = student.GradeId;
             try
             {
                 await _context.SaveChangesAsync();

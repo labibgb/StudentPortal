@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StudentPortal.Models
 {
@@ -15,12 +13,12 @@ namespace StudentPortal.Models
         public DateTime? DateOfBirth { get; set; }
         public byte[] Image { get; set; }
 
-        public virtual Address Address { get; set; }
+        public Address Address { get; set; }
 
         public int GradeId { get; set; }
         public Grade Grade { get; set; }
 
-        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
+        public ICollection<StudentCourse> StudentCourses { get; set; }
 
     }
 }

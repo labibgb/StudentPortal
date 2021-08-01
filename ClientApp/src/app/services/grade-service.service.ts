@@ -12,24 +12,36 @@ export class GradeServiceService {
     this.api = baseUrl + "api/grade"
   }
 
-  gradeData: Grade = new GradeModel();
+  gradeData: Grade = new Grade();
+
   list: Grade[];
 
   addGrade() {
+    if (this.gradeData.id == null) {
+      return this.insertGrade();
+    }
+    else {
+      return this.updateGrade(this.gradeData.id);
+    }
+  }
+
+  insertGrade() {
     return this.http.post(this.api, this.gradeData);
   }
-  getGrade() {
-    this.http.get(this.api)
-      .toPromise()
-      .then(res => {
-        //console.log(res);
-        this.list = res as Grade[]
-      });
-  }
-}
 
-class GradeModel implements Grade {
-  id = 0;
-  name = null;
-  section = null;
+  updateGrade(id: number) {
+    return this.http.put(`${this.api}/${id}`, this.gradeData);
+  }
+
+  deleteGrade(id: number) {
+    return this.http.delete(`${this.api}/${id}`);
+  }
+
+  getList() {
+    return this.http.get(this.api);
+  }
+
+  getSingle(id: number) {
+    return this.http.get(`${this.api}/${id}`);
+  }
 }

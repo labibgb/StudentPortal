@@ -3,7 +3,35 @@
     <app-add-grade></app-add-grade>
   </div>
   <div class="col-md-6">
-    <span *ngFor="let grade of service.list">{{grade.name}}</span>
+      <table mat-table [dataSource]="service.list" style="width:100%;" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Grade Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="section">
+              <th mat-header-cell *matHeaderCellDef> Section </th>
+              <td mat-cell *matCellDef="let element"> {{element.section}} </td>
+          </ng-container>
+          <ng-container matColumnDef="count">
+              <th mat-header-cell *matHeaderCellDef> Number of Student </th>
+              <td mat-cell *matCellDef="let element"> {{element.students.length}} </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element"> <button mat-icon-button color="primary" (click)="updateGrade(element.id)"><mat-icon>edit</mat-icon> </button> </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button color="warn" (click)="deleteGrade(element.id)"><mat-icon>delete</mat-icon> </button>
+              </td>
+          </ng-container>
+          -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
   </div>
 </div>
 

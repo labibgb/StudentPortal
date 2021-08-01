@@ -1,58 +1,72 @@
-<form autocomplete="off" #form="ngForm" (submit)="onSubmit(form)" class="custom-form">
-  <input type="hidden" name="id" [value]="service.studentData.id" />
-  <mat-form-field appearance="outline">
-    <mat-label>NAME</mat-label>
-    <input matInput type="text" name="name" placeholder="Enter your name"
-           #name="ngModel" [(ngModel)]="service.studentData.name" required />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput type="email" name="email" placeholder="example@enosisbd.com"
-           #email="ngModel" [(ngModel)]="service.studentData.email" required />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Phone Number</mat-label>
-    <input matInput type="tel" name="phone" placeholder="+8801XXXXXXXXX"
-           #phone="ngModel" [(ngModel)]="service.studentData.phone" required />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Birth Date</mat-label>
-    <input matInput name="dateOfBirth" [matDatepicker]="datepicker"
-           #dateOfBirth="ngModel" [(ngModel)]="service.studentData.dateOfBirth" required />
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker #datepicker> </mat-datepicker>
-  </mat-form-field>
-  <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
-      <mat-form-field appearance="outline">
-        <mat-label>Address</mat-label>
-        <input matInput type="text" name="address1" placeholder="House no, Road no"
-               #address1="ngModel" [(ngModel)]="service.studentData.address.address1" required />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field appearance="outline">
-        <mat-label>City</mat-label>
-        <input matInput type="text" name="city" placeholder="City"
-               #city="ngModel" [(ngModel)]="service.studentData.address.city" required />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field appearance="outline">
-        <mat-label>State</mat-label>
-        <input matInput type="text" name="city" placeholder="State"
-               #state="ngModel" [(ngModel)]="service.studentData.address.state" required />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field appearance="outline">
-        <mat-label>Country</mat-label>
-        <input matInput type="text" name="country" placeholder="Country"
-               #country="ngModel" [(ngModel)]="service.studentData.address.country" required />
-      </mat-form-field>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <div class="form-group">
-    <button class="btn btn-block" mat-stroked-button color="primary" type="submit" [disabled]="form.invalid"> Submit </button>
-  </div>
-</form>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form autocomplete="off" #form="ngForm" class="custom-form" (submit)="onSubmit(form)">
+            <input type="hidden" name="id" [value]="service.studentData.id" />
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" name="name" placeholder="Enter your name"
+                       #name="ngModel" [(ngModel)]="service.studentData.name" required />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" name="email" placeholder="example@enosisbd.com"
+                       #email="ngModel" [(ngModel)]="service.studentData.email" required />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="tel" name="phone" placeholder="+8801XXXXXXXXX"
+                       #phone="ngModel" [(ngModel)]="service.studentData.phone" required />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Birth Date</mat-label>
+                <input matInput name="dateOfBirth" [matDatepicker]="datepicker"
+                       #dateOfBirth="ngModel" [(ngModel)]="service.studentData.dateOfBirth" required />
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker> </mat-datepicker>
+            </mat-form-field>
+            <div class="row">
+                <input type="hidden" name="addressId" [value]="service.studentData.address.id" />
+                <div class="col-md-6">
+                    <mat-form-field style="width:100%" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" name="address1" placeholder="House no, Road no"
+                               #address1="ngModel" [(ngModel)]="service.studentData.address.address1" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field style="width:100%" appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" name="city" placeholder="City"
+                               #city="ngModel" [(ngModel)]="service.studentData.address.city" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field style="width:100%" appearance="outline">
+                        <mat-label>State</mat-label>
+                        <input matInput type="text" name="city" placeholder="State"
+                               #state="ngModel" [(ngModel)]="service.studentData.address.state" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field style="width:100%" appearance="outline">
+                        <mat-label>Country</mat-label>
+                        <input matInput type="text" name="country" placeholder="Country"
+                               #country="ngModel" [(ngModel)]="service.studentData.address.country" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-form-field style="width:100%" appearance="outline">
+                <mat-label>Grade</mat-label>
+                <mat-select name="gradeId" #gradeId="ngModel" [(ngModel)]="service.studentData.gradeId">
+                    <mat-option *ngFor="let grade of gradeService.list" [value]="grade.id">{{grade.name}} - {{grade.section}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="form-group">
+                <button class="btn btn-block" mat-stroked-button color="primary" type="submit" [disabled]="form.invalid"> Submit </button>
+            </div>
+        </form>
+    </div>
+</div>

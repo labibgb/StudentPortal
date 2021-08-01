@@ -1,8 +1,72 @@
-<div class="row">
-  <div class="col-md-3">
-  </div>
-  <div class="col-md-6">
-    <app-add-student></app-add-student>
-  </div>
+<div class="text-right">
+   <button mat-fab color="primary" (click)="addNew()">
+       <mat-icon>add</mat-icon>
+   </button>
 </div>
+<div class="d-flex justify-content-center">
+    <mat-spinner [hidden]="hide"></mat-spinner>
+</div>
+<div [hidden]="!hide">
+    <div style="margin-top:20px;" *ngFor="let student of pageData">
+        <mat-card>
+            <mat-card-title class="d-flex justify-content-end">
+                <button mat-icon-button color="primary" (click)="updateData(student.id)"><mat-icon>edit</mat-icon> </button>
+                <button mat-icon-button color="warn" (click)="deleteData(student.id)"><mat-icon>delete</mat-icon> </button>
+            </mat-card-title>
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel [expanded]="studentId === student.id && step === 0" (opened)="setStep(student.id, 0)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Student Info
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{student.name}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>{{student.name}}</p>
+                    <p>{{student.email}}</p>
+                    <p>{{student.phone}}</p>
+                    <p *ngIf="student.grade">{{student.grade.name}} {{student.grade.section}}</p>
+                    <mat-action-row>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
 
+                <mat-expansion-panel [expanded]="studentId === student.id && step === 1" (opened)="setStep(student.id, 1)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Address
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>{{student.address.address1}}</p>
+                    <p>{{student.address.city}}</p>
+                    <p>{{student.address.state}}</p>
+                    <p>{{student.address.country}}</p>
+                    <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel [expanded]="studentId === student.id && step === 2" (opened)="setStep(student.id,2)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Courses
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                        <button mat-button color="primary" (click)="nextStep()">End</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card>
+    </div>
+    <mat-paginator [length]="length"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="pageEvent = handlePage($event)"
+                   aria-label="Select page">
+    </mat-paginator>
+</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 import { GradeServiceService } from '../../services/grade-service.service';
+import { Grade } from '../../services/student-model';
+import { GradeComponent } from '../grade.component';
 
 @Component({
   selector: 'app-add-grade',
@@ -9,20 +11,25 @@ import { GradeServiceService } from '../../services/grade-service.service';
 })
 export class AddGradeComponent implements OnInit {
 
-  constructor(public service: GradeServiceService) { }
+  constructor(public service: GradeServiceService, public grade: GradeComponent) { }
 
   ngOnInit() {
   }
-  onSubmit(form: NgModel) {
 
+  onSubmit(form: NgForm) {
+    console.log(form);
     this.service.addGrade().subscribe(
       res => {
-        console.log(res);
+        this.resetForm(form);
+        this.grade.refreshData();
       },
       err => {
         console.log(err);
       }
     )
-    console.log(form);
+  }
+
+  resetForm(form: NgForm) {
+    form.form.reset();
   }
 }
